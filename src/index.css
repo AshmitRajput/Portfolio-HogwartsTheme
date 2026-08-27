@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --color-bg: #0a0908;
+  --color-bg-alt: #110d0b;
+  --color-surface: #171210;
+  --color-border: rgba(245, 241, 234, 0.12);
+  --color-text: #f5f1ea;
+  --color-text-muted: rgba(245, 241, 234, 0.6);
+
+  /* fire accent range: red -> orange -> amber */
+  --color-accent: #ff5a1f;
+  --color-accent-2: #ffb545;
+  --color-accent-red: #e2311d;
+  --color-accent-soft: rgba(255, 90, 31, 0.14);
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
