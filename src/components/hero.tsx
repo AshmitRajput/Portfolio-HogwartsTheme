@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import baseImage from '../assets/transparent-base.png'
 import flameImage from '../assets/transparent-flame.png'
 import CtaButton from './CtaButton'
-import './Hero.css'
+import './hero.css'
 
 function Hero() {
   const headlineText = 'I built the mask.'
@@ -135,6 +135,10 @@ function Hero() {
   return (
     <section className="hero" aria-label="Portfolio hero">
       <div className="hero__layers" aria-hidden="true">
+        <div className="hero__stars">
+          <div className="hero__stars-layer hero__stars-layer--1" />
+          <div className="hero__stars-layer hero__stars-layer--2" />
+        </div>
         <div
           className={`hero__layer hero__layer--base ${isReady ? 'is-visible' : ''}`}
           style={{ backgroundImage: `url(${baseImage})` }}

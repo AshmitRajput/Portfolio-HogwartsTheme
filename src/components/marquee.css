@@ -5,63 +5,66 @@
   margin-left: -4%;
   margin-top: clamp(-56px, -6vw, -34px);
   margin-bottom: clamp(-40px, -4vw, -20px);
-  transform: rotate(-2.2deg);
+  transform: rotate(-1.4deg);
   overflow: hidden;
-  background: #060403;
-  border-top: 1px solid rgba(255, 90, 31, 0.35);
-  border-bottom: 1px solid rgba(255, 90, 31, 0.35);
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(120, 90, 50, 0.25), transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(90, 65, 35, 0.25), transparent 60%),
+    #d8c39c;
+  border-top: 2px solid rgba(60, 40, 20, 0.55);
+  border-bottom: 2px solid rgba(60, 40, 20, 0.55);
   box-shadow:
-    0 0 40px rgba(226, 49, 29, 0.25),
-    0 0 90px rgba(255, 90, 31, 0.12);
+    inset 0 0 60px rgba(60, 35, 10, 0.45),
+    0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* Two independently-drifting gradient layers = swirling fire bands */
-.marquee__fire {
+.marquee__texture {
   position: absolute;
   inset: -60% -20%;
   pointer-events: none;
   z-index: 0;
-  mix-blend-mode: screen;
-  filter: blur(26px);
+  filter: blur(1px);
 }
 
-.marquee__fire--a {
+.marquee__texture--a {
   background:
-    radial-gradient(ellipse 40% 60% at 15% 40%, rgba(255, 181, 69, 0.65), transparent 60%),
-    radial-gradient(ellipse 35% 55% at 50% 60%, rgba(255, 90, 31, 0.6), transparent 60%),
-    radial-gradient(ellipse 40% 60% at 85% 35%, rgba(226, 49, 29, 0.55), transparent 60%);
-  animation: fire-swirl-a 10s ease-in-out infinite;
+    radial-gradient(ellipse 30% 40% at 15% 35%, rgba(101, 67, 33, 0.35), transparent 60%),
+    radial-gradient(ellipse 25% 35% at 55% 65%, rgba(80, 50, 20, 0.3), transparent 60%),
+    radial-gradient(ellipse 30% 40% at 88% 30%, rgba(101, 67, 33, 0.3), transparent 60%);
+  animation: paper-drift-a 22s ease-in-out infinite;
 }
 
-.marquee__fire--b {
+.marquee__texture--b {
   background:
-    radial-gradient(ellipse 30% 50% at 30% 70%, rgba(226, 49, 29, 0.5), transparent 55%),
-    radial-gradient(ellipse 45% 65% at 70% 30%, rgba(255, 181, 69, 0.55), transparent 60%);
-  animation: fire-swirl-b 14s ease-in-out infinite;
-  opacity: 0.85;
+    repeating-linear-gradient(
+      95deg,
+      rgba(60, 40, 20, 0.05) 0px,
+      rgba(60, 40, 20, 0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  opacity: 0.6;
+  animation: paper-drift-b 30s linear infinite;
 }
 
-@keyframes fire-swirl-a {
+@keyframes paper-drift-a {
   0% {
-    transform: translate(-4%, 0%) rotate(0deg) scale(1);
+    transform: translate(-2%, 0%) rotate(0deg);
   }
   50% {
-    transform: translate(4%, -6%) rotate(6deg) scale(1.18);
+    transform: translate(2%, -3%) rotate(1.5deg);
   }
   100% {
-    transform: translate(-4%, 0%) rotate(0deg) scale(1);
+    transform: translate(-2%, 0%) rotate(0deg);
   }
 }
 
-@keyframes fire-swirl-b {
+@keyframes paper-drift-b {
   0% {
-    transform: translate(6%, 2%) rotate(0deg) scale(1.1);
-  }
-  50% {
-    transform: translate(-6%, -3%) rotate(-8deg) scale(1);
+    transform: translateY(0%);
   }
   100% {
-    transform: translate(6%, 2%) rotate(0deg) scale(1.1);
+    transform: translateY(3%);
   }
 }
 
@@ -70,8 +73,8 @@
   z-index: 1;
   display: flex;
   width: max-content;
-  padding: 14px 0;
-  animation: marquee-scroll 28s linear infinite;
+  padding: 16px 0;
+  animation: marquee-scroll 32s linear infinite;
 }
 
 .marquee__item {
@@ -80,15 +83,20 @@
   gap: 28px;
   padding: 0 28px;
   white-space: nowrap;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.03em;
-  color: var(--color-text);
-  text-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-display, serif);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  color: #3a2510;
+  text-shadow:
+    0 1px 0 rgba(255, 240, 210, 0.5),
+    0 -1px 1px rgba(40, 20, 5, 0.55);
 }
 
 .marquee__dot {
-  color: var(--color-accent-2);
+  color: #7a3b12;
+  font-size: 0.7rem;
+  text-shadow: none;
 }
 
 @keyframes marquee-scroll {
@@ -102,8 +110,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .marquee__track,
-  .marquee__fire--a,
-  .marquee__fire--b {
+  .marquee__texture--a,
+  .marquee__texture--b {
     animation: none;
   }
 }

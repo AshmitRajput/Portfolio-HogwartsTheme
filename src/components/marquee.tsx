@@ -1,4 +1,4 @@
-import './Marquee.css'
+import './marquee.css'
 
 const DEFAULT_ITEMS = [
   'Retrieval-Augmented Generation',
@@ -20,13 +20,13 @@ function Marquee({ items = DEFAULT_ITEMS }: MarqueeProps) {
 
   return (
     <div className="marquee" role="presentation" aria-hidden="true">
-      <div className="marquee__fire marquee__fire--a" />
-      <div className="marquee__fire marquee__fire--b" />
+      <div className="marquee__texture marquee__texture--a" />
+      <div className="marquee__texture marquee__texture--b" />
       <div className="marquee__track">
         {track.map((item, index) => (
           <span className="marquee__item" key={`${item}-${index}`}>
             {item}
-            <span className="marquee__dot">•</span>
+            <span className="marquee__dot">✦</span>
           </span>
         ))}
       </div>

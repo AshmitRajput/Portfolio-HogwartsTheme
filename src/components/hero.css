@@ -4,7 +4,7 @@
   min-height: 100svh;
   overflow: hidden;
   isolation: isolate;
-  background: var(--color-bg);
+  background: #05060d;
 }
 
 .hero__layers,
@@ -15,6 +15,56 @@
 
 .hero__layers {
   pointer-events: none;
+}
+
+.hero__stars {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, #10142b 0%, #05060d 55%, #020204 100%);
+}
+
+.hero__stars-layer {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  opacity: 0.9;
+}
+
+.hero__stars-layer--1 {
+  background-image:
+    radial-gradient(1.6px 1.6px at 12% 18%, #fff, transparent 100%),
+    radial-gradient(1.2px 1.2px at 28% 62%, #fff, transparent 100%),
+    radial-gradient(1.8px 1.8px at 44% 30%, #fff, transparent 100%),
+    radial-gradient(1.3px 1.3px at 61% 78%, #fff, transparent 100%),
+    radial-gradient(1.5px 1.5px at 76% 22%, #fff, transparent 100%),
+    radial-gradient(1.1px 1.1px at 89% 55%, #fff, transparent 100%),
+    radial-gradient(1.4px 1.4px at 6% 85%, #fff, transparent 100%),
+    radial-gradient(1.7px 1.7px at 95% 88%, #fff, transparent 100%);
+  background-size: 260px 260px;
+  animation: star-twinkle-a 4.5s ease-in-out infinite;
+}
+
+.hero__stars-layer--2 {
+  background-image:
+    radial-gradient(1px 1px at 20% 40%, rgba(255, 255, 255, 0.8), transparent 100%),
+    radial-gradient(1px 1px at 35% 10%, rgba(255, 255, 255, 0.7), transparent 100%),
+    radial-gradient(1.2px 1.2px at 52% 68%, rgba(255, 255, 255, 0.8), transparent 100%),
+    radial-gradient(1px 1px at 70% 48%, rgba(255, 255, 255, 0.7), transparent 100%),
+    radial-gradient(1.1px 1.1px at 84% 12%, rgba(255, 255, 255, 0.8), transparent 100%),
+    radial-gradient(1px 1px at 98% 65%, rgba(255, 255, 255, 0.7), transparent 100%);
+  background-size: 340px 340px;
+  animation: star-twinkle-b 6s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes star-twinkle-a {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes star-twinkle-b {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.35; }
 }
 
 .hero__layer {
@@ -61,9 +111,9 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(0deg, rgba(10, 9, 8, 0.92) 0%, rgba(10, 9, 8, 0.1) 42%, rgba(10, 9, 8, 0.35) 100%),
-    linear-gradient(90deg, rgba(10, 9, 8, 0.55) 0%, transparent 45%),
-    radial-gradient(circle at 12% 88%, rgba(226, 49, 29, 0.16), transparent 45%);
+    linear-gradient(0deg, rgba(2, 2, 6, 0.94) 0%, rgba(2, 2, 6, 0.1) 42%, rgba(2, 2, 6, 0.4) 100%),
+    linear-gradient(90deg, rgba(2, 2, 6, 0.55) 0%, transparent 45%),
+    radial-gradient(circle at 12% 88%, rgba(90, 60, 200, 0.14), transparent 45%);
   pointer-events: none;
 }
 
@@ -216,7 +266,8 @@
   .hero__layer,
   .hero__content,
   .hero__skeleton,
-  .word-reveal {
+  .word-reveal,
+  .hero__stars-layer {
     animation: none;
     transition: none;
     opacity: 1;
