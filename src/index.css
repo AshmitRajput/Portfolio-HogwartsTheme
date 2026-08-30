@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
 
 :root {
-  --color-bg: #0a0908;
-  --color-bg-alt: #110d0b;
+  --color-bg: #04050c;
+  --color-bg-alt: #070812;
   --color-surface: #171210;
   --color-border: rgba(245, 241, 234, 0.12);
   --color-text: #f5f1ea;
