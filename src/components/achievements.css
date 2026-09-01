@@ -1,0 +1,479 @@
+.achievements {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #05070f;
+  padding: clamp(28px, 5vw, 56px) clamp(16px, 4vw, 40px);
+  font-family: var(--font-mono, ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace);
+}
+
+/* ---------------------------------- */
+/* Starry night background            */
+/* ---------------------------------- */
+
+.achievements__stars {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, #0d1530 0%, #05070f 60%, #020306 100%);
+}
+
+.achievements__stars-layer {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+}
+
+.achievements__stars-layer--1 {
+  background-image:
+    radial-gradient(1.6px 1.6px at 8% 20%, #fff, transparent 100%),
+    radial-gradient(1.2px 1.2px at 22% 65%, #fff, transparent 100%),
+    radial-gradient(1.8px 1.8px at 38% 12%, #fff, transparent 100%),
+    radial-gradient(1.3px 1.3px at 54% 80%, #fff, transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 30%, #fff, transparent 100%),
+    radial-gradient(1.1px 1.1px at 85% 58%, #fff, transparent 100%),
+    radial-gradient(1.4px 1.4px at 95% 15%, #fff, transparent 100%);
+  background-size: 280px 280px;
+  animation: achv-star-twinkle-a 4.6s ease-in-out infinite;
+}
+
+.achievements__stars-layer--2 {
+  background-image:
+    radial-gradient(1px 1px at 15% 45%, rgba(150, 190, 255, 0.85), transparent 100%),
+    radial-gradient(1px 1px at 33% 8%, rgba(150, 190, 255, 0.75), transparent 100%),
+    radial-gradient(1.2px 1.2px at 58% 62%, rgba(150, 190, 255, 0.85), transparent 100%),
+    radial-gradient(1px 1px at 77% 40%, rgba(150, 190, 255, 0.75), transparent 100%),
+    radial-gradient(1.1px 1.1px at 92% 78%, rgba(150, 190, 255, 0.85), transparent 100%);
+  background-size: 360px 360px;
+  animation: achv-star-twinkle-b 6.4s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+@keyframes achv-star-twinkle-a {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes achv-star-twinkle-b {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.3; }
+}
+
+/* ---------------------------------- */
+/* Outer HUD frame                    */
+/* ---------------------------------- */
+
+.achievements__frame {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  border: 2px dashed rgba(66, 140, 255, 0.55);
+  border-radius: 4px;
+  padding: clamp(20px, 3.6vw, 36px);
+  background: rgba(4, 8, 18, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.achievements__corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #4aa8ff;
+  box-shadow: 0 0 8px rgba(74, 168, 255, 0.8);
+}
+
+.achievements__corner--tl {
+  top: -5px;
+  left: -5px;
+}
+
+.achievements__corner--tr {
+  top: -5px;
+  right: -5px;
+}
+
+.achievements__corner--bl {
+  bottom: -5px;
+  left: -5px;
+}
+
+.achievements__corner--br {
+  bottom: -5px;
+  right: -5px;
+}
+
+/* ---------------------------------- */
+/* Header                             */
+/* ---------------------------------- */
+
+.achievements__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: clamp(20px, 3.6vw, 32px);
+}
+
+.achievements__title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.achievements__title-icon {
+  width: clamp(40px, 5vw, 56px);
+  height: clamp(40px, 5vw, 56px);
+  image-rendering: pixelated;
+}
+
+.achievements__title {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #f4f7ff;
+  text-transform: uppercase;
+}
+
+.achievements__breadcrumb {
+  margin: 4px 0 0;
+  font-size: clamp(0.7rem, 1.3vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4aa8ff;
+}
+
+.achievements__breadcrumb-arrow {
+  color: #3ddc84;
+  margin-right: 4px;
+}
+
+.achievements__breadcrumb-sep {
+  margin: 0 8px;
+  color: rgba(74, 168, 255, 0.5);
+}
+
+.achievements__tagline {
+  text-align: right;
+  font-size: clamp(0.7rem, 1.3vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #4aa8ff;
+  line-height: 1.5;
+}
+
+.achievements__tagline p {
+  margin: 0;
+}
+
+/* ---------------------------------- */
+/* Stat cards                         */
+/* ---------------------------------- */
+
+.achievements__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: clamp(28px, 4.5vw, 44px);
+}
+
+.stat-card {
+  position: relative;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 16px;
+  background: rgba(6, 10, 22, 0.6);
+}
+
+.stat-card--blue { --accent: #4aa8ff; }
+.stat-card--green { --accent: #3ddc84; }
+.stat-card--purple { --accent: #b16cea; }
+.stat-card--gold { --accent: #ffb63d; }
+
+.stat-card__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.stat-card__icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.stat-card__icon-box img {
+  width: 26px;
+  height: 26px;
+  image-rendering: pixelated;
+}
+
+.stat-card__value-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stat-card__value {
+  font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+  font-weight: 800;
+  color: #f4f7ff;
+}
+
+.stat-card__badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+}
+
+.stat-card__label {
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.stat-card__sub {
+  margin: 0 0 12px;
+  font-size: 0.72rem;
+  color: rgba(230, 236, 250, 0.6);
+  line-height: 1.4;
+}
+
+.stat-card__bar-track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.stat-card__bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+/* ---------------------------------- */
+/* Section heading                    */
+/* ---------------------------------- */
+
+.achievements__section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(16px, 3vw, 24px);
+}
+
+.achievements__flag {
+  color: #4aa8ff;
+  font-size: 1.3rem;
+}
+
+.achievements__section-heading h3 {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #f4f7ff;
+  white-space: nowrap;
+}
+
+.achievements__heading-rule {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(74, 168, 255, 0.7), rgba(74, 168, 255, 0));
+}
+
+.achievements__heading-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.achievements__heading-dots i {
+  width: 6px;
+  height: 6px;
+  background: #4aa8ff;
+  display: block;
+}
+
+/* ---------------------------------- */
+/* Achievement cards grid             */
+/* ---------------------------------- */
+
+.achievements__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.achv-card {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 18px;
+  background: rgba(6, 10, 22, 0.6);
+}
+
+.achv-card--blue { --accent: #4aa8ff; }
+.achv-card--green { --accent: #3ddc84; }
+.achv-card--purple { --accent: #b16cea; }
+.achv-card--gold { --accent: #ffb63d; }
+
+.achv-card--full {
+  grid-column: 1 / -1;
+}
+
+.achv-card__icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.achv-card__icon-box img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+.achv-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.achv-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.achv-card__title {
+  margin: 0;
+  font-size: clamp(0.92rem, 1.8vw, 1.1rem);
+  font-weight: 800;
+  color: #f4f7ff;
+}
+
+.achv-card__desc {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(230, 236, 250, 0.65);
+}
+
+.achv-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.achv-card__badge--legendary {
+  color: #ffcc33;
+  border: 1px solid #ffcc33;
+}
+
+.achv-card__badge--epic {
+  color: #b16cea;
+  border: 1px solid #b16cea;
+}
+
+.achv-card__badge--rare {
+  color: #4aa8ff;
+  border: 1px solid #4aa8ff;
+}
+
+.achv-card__badge--unlocked {
+  color: #3ddc84;
+  border: 1px solid #3ddc84;
+}
+
+.achv-card__badge-glyph {
+  font-size: 0.7rem;
+}
+
+/* ---------------------------------- */
+/* Decorative mountains                */
+/* ---------------------------------- */
+
+.achievements__mountains {
+  position: absolute;
+  right: clamp(8px, 2vw, 24px);
+  bottom: clamp(8px, 2vw, 24px);
+  width: clamp(160px, 20vw, 260px);
+  height: auto;
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.95;
+}
+
+/* ---------------------------------- */
+/* Responsive                         */
+/* ---------------------------------- */
+
+@media (max-width: 980px) {
+  .achievements__stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .achievements__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievements__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .achievements__tagline {
+    text-align: left;
+  }
+
+  .achievements__mountains {
+    width: clamp(120px, 40vw, 180px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achievements__stars-layer {
+    animation: none;
+  }
+}

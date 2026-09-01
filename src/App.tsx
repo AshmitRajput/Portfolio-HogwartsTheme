@@ -1,13 +1,13 @@
 import Hero from './components/hero'
-import SortingHat from './components/sortinghat'
 import Projects from './components/projects'
 import './App.css'
+import Marquee from './components/marquee'
 
 function App() {
   return (
     <main className="page">
       <Hero />
-      <SortingHat />
+      <Marquee/>
       <Projects />
     </main>
   )

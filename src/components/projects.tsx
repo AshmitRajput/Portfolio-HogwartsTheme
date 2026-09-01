@@ -1,4 +1,5 @@
-import './Projects.css'
+import cloudImg from '../assets/cloud.jpg'
+import './projects.css'
 
 interface Project {
   name: string
@@ -76,22 +77,46 @@ const PROJECTS: Project[] = [
 
 function Projects() {
   return (
-    <section className="projects" id="work" aria-label="Projects">
+    <section
+      className="projects"
+      id="work"
+      aria-label="Projects"
+      style={{ backgroundImage: `url(${cloudImg})` }}
+    >
       <div className="projects__header">
-        <p className="projects__eyebrow">&gt; ls ./projects</p>
-        <h2>Selected builds</h2>
+        <div className="projects__terminal">
+          <div className="projects__terminal-bar">
+            <span className="projects__terminal-dot projects__terminal-dot--red" />
+            <span className="projects__terminal-dot projects__terminal-dot--yellow" />
+            <span className="projects__terminal-dot projects__terminal-dot--green" />
+            <span className="projects__terminal-path">ashmit@portfolio:~/projects</span>
+          </div>
+
+          <div className="projects__terminal-body">
+            <p className="projects__terminal-line">
+              <span className="projects__prompt">$</span>
+              <span className="projects__terminal-text">ls ./projects</span>
+            </p>
+            <h2 className="projects__terminal-output">Selected builds</h2>
+          </div>
+        </div>
       </div>
 
       <div className="projects__grid">
         {PROJECTS.map((project) => (
           <article className="project-card" key={project.name}>
+            <div className="project-card__overlay" aria-hidden="true" />
+
             <div className="project-card__bar">
-              <span className="project-card__dot" />
-              <span className="project-card__dot" />
-              <span className="project-card__dot" />
+              <span className="pixel-dot" aria-hidden="true" />
               <span className="project-card__path">
                 ~/{project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}
               </span>
+              <div className="pixel-controls" aria-hidden="true">
+                <span className="pixel-control pixel-control--min" />
+                <span className="pixel-control pixel-control--max" />
+                <span className="pixel-control pixel-control--close" />
+              </div>
             </div>
             <div className="project-card__body">
               <h3>{project.name}</h3>

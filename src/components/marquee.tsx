@@ -20,15 +20,16 @@ function Marquee({ items = DEFAULT_ITEMS }: MarqueeProps) {
 
   return (
     <div className="marquee" role="presentation" aria-hidden="true">
-      <div className="marquee__texture marquee__texture--a" />
-      <div className="marquee__texture marquee__texture--b" />
-      <div className="marquee__track">
-        {track.map((item, index) => (
-          <span className="marquee__item" key={`${item}-${index}`}>
-            {item}
-            <span className="marquee__dot">✦</span>
-          </span>
-        ))}
+      <div className="marquee__strip">
+        <div className="marquee__track">
+          {track.map((item, index) => (
+            <span className="marquee__item" key={`${item}-${index}`}>
+              <span className="marquee__word">{item}</span>
+              <span className="marquee__sep" />
+            </span>
+          ))}
+        </div>
+        <div className="marquee__scanlines" />
       </div>
     </div>
   )
