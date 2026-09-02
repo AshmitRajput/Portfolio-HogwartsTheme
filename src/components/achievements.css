@@ -5,26 +5,32 @@
   background: #05070f;
   padding: clamp(28px, 5vw, 56px) clamp(16px, 4vw, 40px);
   font-family: var(--font-mono, ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace);
+  --par-x: 0;
+  --par-y: 0;
+  --scroll-shift: 0;
 }
 
 /* ---------------------------------- */
-/* Starry night background            */
+/* Starry night background (parallax) */
 /* ---------------------------------- */
 
 .achievements__stars {
   position: absolute;
-  inset: 0;
+  inset: -6% -4%;
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(ellipse at 50% 0%, #0d1530 0%, #05070f 60%, #020306 100%);
+  perspective: 600px;
 }
 
 .achievements__stars-layer {
   position: absolute;
   inset: 0;
   background-repeat: repeat;
+  will-change: transform;
 }
 
+/* Layer 1: farthest — dense, small, moves the least */
 .achievements__stars-layer--1 {
   background-image:
     radial-gradient(1.6px 1.6px at 8% 20%, #fff, transparent 100%),
@@ -36,8 +42,15 @@
     radial-gradient(1.4px 1.4px at 95% 15%, #fff, transparent 100%);
   background-size: 280px 280px;
   animation: achv-star-twinkle-a 4.6s ease-in-out infinite;
+  transform: translate3d(
+    calc(var(--par-x) * 10px),
+    calc(var(--par-y) * 10px + var(--scroll-shift) * 14px),
+    0
+  );
+  transition: transform 0.05s linear;
 }
 
+/* Layer 2: mid-distance — blue-tinted, moves a bit more */
 .achievements__stars-layer--2 {
   background-image:
     radial-gradient(1px 1px at 15% 45%, rgba(150, 190, 255, 0.85), transparent 100%),
@@ -48,6 +61,31 @@
   background-size: 360px 360px;
   animation: achv-star-twinkle-b 6.4s ease-in-out infinite;
   animation-delay: 1.2s;
+  transform: translate3d(
+    calc(var(--par-x) * 22px),
+    calc(var(--par-y) * 22px + var(--scroll-shift) * 30px),
+    0
+  );
+  transition: transform 0.05s linear;
+}
+
+/* Layer 3: closest — few, bright, biggest stars, moves the most */
+.achievements__stars-layer--3 {
+  background-image:
+    radial-gradient(2.4px 2.4px at 12% 30%, #eaf3ff, transparent 100%),
+    radial-gradient(2px 2px at 46% 75%, #eaf3ff, transparent 100%),
+    radial-gradient(2.6px 2.6px at 68% 18%, #eaf3ff, transparent 100%),
+    radial-gradient(2.2px 2.2px at 88% 55%, #eaf3ff, transparent 100%);
+  background-size: 520px 520px;
+  opacity: 0.85;
+  animation: achv-star-twinkle-a 5.8s ease-in-out infinite;
+  animation-delay: 0.6s;
+  transform: translate3d(
+    calc(var(--par-x) * 42px),
+    calc(var(--par-y) * 42px + var(--scroll-shift) * 52px),
+    0
+  );
+  transition: transform 0.05s linear;
 }
 
 @keyframes achv-star-twinkle-a {
@@ -442,6 +480,8 @@
   pointer-events: none;
   z-index: 0;
   opacity: 0.95;
+  transform: translate3d(calc(var(--par-x) * -6px), calc(var(--scroll-shift) * -6px), 0);
+  transition: transform 0.05s linear;
 }
 
 /* ---------------------------------- */
@@ -475,5 +515,10 @@
 @media (prefers-reduced-motion: reduce) {
   .achievements__stars-layer {
     animation: none;
+    transform: none !important;
+  }
+
+  .achievements__mountains {
+    transform: none !important;
   }
 }

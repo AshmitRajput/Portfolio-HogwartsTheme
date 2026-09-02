@@ -1,14 +1,15 @@
-import trophyIcon from '../assets/achievements/trophy-icon.png'
-import knightHelmetIcon from '../assets/achievements/knight-helmet.png'
-import checklistIcon from '../assets/achievements/checklist-icon.png'
-import starIcon from '../assets/achievements/star-icon.png'
-import codeIcon from '../assets/achievements/code-icon.png'
-import chefHatIcon from '../assets/achievements/chefhat-icon.png'
-import trophyBlueIcon from '../assets/achievements/trophy-blue.png'
-import trophyGoldIcon from '../assets/achievements/trophy-gold-1.png'
-import medalPurpleIcon from '../assets/achievements/medal-purple-3.png'
-import communityIcon from '../assets/achievements/community-icon.png'
-import mountainsImage from '../assets/achievements/mountains.png'
+import { useEffect, useRef } from 'react'
+import trophyIcon from '../assets/trophy-icon.png'
+import knightHelmetIcon from '../assets/knight-helmet.png'
+import checklistIcon from '../assets/checklist-icon.png'
+import starIcon from '../assets/star-icon.png'
+import codeIcon from '../assets/code-icon.png'
+import chefHatIcon from '../assets/chefhat-icon.png'
+import trophyBlueIcon from '../assets/trophy-blue.png'
+import trophyGoldIcon from '../assets/trophy-gold-1.png'
+import medalPurpleIcon from '../assets/medal-purple-3.png'
+import communityIcon from '../assets/community-icon.png'
+import mountainsImage from '../assets/mountain.png'
 import './achievements.css'
 
 type Theme = 'blue' | 'green' | 'purple' | 'gold'
@@ -136,11 +137,79 @@ const ACHIEVEMENTS: Achievement[] = [
 ]
 
 function Achievements() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const rafRef = useRef<number | null>(null)
+  const targetRef = useRef({ px: 0, py: 0, scroll: 0 })
+  const currentRef = useRef({ px: 0, py: 0, scroll: 0 })
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+    if (prefersReducedMotion) return
+
+    const tick = () => {
+      // ease current values toward target for a smooth, floaty parallax feel
+      const ease = 0.08
+      const cur = currentRef.current
+      const tgt = targetRef.current
+      cur.px += (tgt.px - cur.px) * ease
+      cur.py += (tgt.py - cur.py) * ease
+      cur.scroll += (tgt.scroll - cur.scroll) * ease
+
+      section.style.setProperty('--par-x', cur.px.toFixed(4))
+      section.style.setProperty('--par-y', cur.py.toFixed(4))
+      section.style.setProperty('--scroll-shift', cur.scroll.toFixed(4))
+
+      rafRef.current = requestAnimationFrame(tick)
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect()
+      const x = (e.clientX - rect.left) / rect.width - 0.5
+      const y = (e.clientY - rect.top) / rect.height - 0.5
+      targetRef.current.px = x
+      targetRef.current.py = y
+    }
+
+    const handleMouseLeave = () => {
+      targetRef.current.px = 0
+      targetRef.current.py = 0
+    }
+
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect()
+      const viewportCenter = window.innerHeight / 2
+      const sectionCenter = rect.top + rect.height / 2
+      // normalized distance of section center from viewport center, clamped
+      const distance = (viewportCenter - sectionCenter) / window.innerHeight
+      const clamped = Math.max(-1, Math.min(1, distance))
+      targetRef.current.scroll = clamped
+    }
+
+    handleScroll()
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    section.addEventListener('mouseleave', handleMouseLeave)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    rafRef.current = requestAnimationFrame(tick)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      section.removeEventListener('mouseleave', handleMouseLeave)
+      window.removeEventListener('scroll', handleScroll)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [])
+
   return (
-    <section className="achievements" aria-label="Achievements">
+    <section className="achievements" aria-label="Achievements" ref={sectionRef}>
       <div className="achievements__stars" aria-hidden="true">
         <div className="achievements__stars-layer achievements__stars-layer--1" />
         <div className="achievements__stars-layer achievements__stars-layer--2" />
+        <div className="achievements__stars-layer achievements__stars-layer--3" />
       </div>
 
       <div className="achievements__frame">
